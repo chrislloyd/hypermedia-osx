@@ -35,7 +35,7 @@ func index() throws -> Node {
             ),
             .body(
                 .h1("Contacts"),
-                .fragment(contacts.map { contact in Contact(contact) })
+                .fragment(contacts.sortedByName().map { contact in Contact(contact) })
             )
         )
     )
