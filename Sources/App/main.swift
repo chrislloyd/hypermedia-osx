@@ -1,18 +1,9 @@
-import Contacts
 import Foundation
+import HtmlVaporSupport
 import Vapor
 
-// Request access to contacts and start the server
-try await MacContactsWebApp.main()
-
-// Main entry point
-extension MacContactsWebApp {
-  static func main() async throws {
-    let store = CNContactStore()
-    try await store.requestAccess(for: CNEntityType.contacts)
-
-    let app = try await Application.make(Environment.detect())
-    try configure(app)
-    try await app.execute()
-  }
-}
+var env = try Environment.detect()
+try LoggingSystem.bootstrap(from: &env)
+let app = try await Application.make(env)
+try await configure(app)
+try await app.execute()
